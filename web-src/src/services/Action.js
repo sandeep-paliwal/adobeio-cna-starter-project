@@ -34,6 +34,8 @@ Action.webInvoke = async function (actionName, params, errorNotJsonResponse) {
 
   const response = await fetch(API[actionName], params && {
     method: 'post',
+    redirect: 'follow',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },

@@ -32,7 +32,11 @@ async function deployStaticS3 () {
   await utils.s3.uploadDir(s3, config.s3DeploymentFolder,
     config.distUIRemoteDir, f => console.log(`  -> ${path.basename(f)}`))
 
-  return `https://s3.amazonaws.com/${creds.params.Bucket}/${config.s3DeploymentFolder}/index.html`
+  return getAppURL()
+}
+
+function getAppURL(){
+  return `https://${config.owNamespace}.${config.runtimeHostname || 'dev.adobe-runtime.com'}/${config.owDeploymentPackage}/index.html`
 }
 
 deployStaticS3()

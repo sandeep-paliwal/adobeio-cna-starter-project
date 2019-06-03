@@ -28,6 +28,7 @@ config.owApihost = process.env.WHISK_APIHOST
 config.owNamespace = process.env.WHISK_NAMESPACE
 config.owAuth = process.env.WHISK_AUTH
 config.owApiversion = process.env.WHISK_APIVERSION
+config.runtimeHostname = process.env.RUNTIME_HOSTNAME
 /// either tvmUrl
 config.tvmUrl = process.env.TVM_URL
 /// or long term creds
@@ -63,12 +64,11 @@ config.s3DeploymentFolder = utils.urlJoin(config.owNamespace, config.owDeploymen
 // credentials cache
 config.credsCacheFile = path.join(rootDir, '.aws.tmp.creds.json')
 
-// action urls {name: url}, if dev url is /actions/name
 config.actionUrls = Object.entries(config.wskManifestActions).reduce((obj, [name, action]) => {
   const webArg = action['web-export'] || action['web']
   const webUri = (webArg && webArg !== 'no' && webArg !== 'false') ? 'web' : ''
   obj[name] = (config.remoteActions || process.env['NODE_ENV'] === 'production')
-    ? utils.urlJoin(config.owApihost, 'api', config.owApiversion || 'v1', webUri, config.owNamespace, config.owDeploymentPackage, name)
+    ? utils.urlJoin('https://,'config.owNamespace, '.', config.runtimeHostname || 'dev.adobe-runtime.com', config.owDeploymentPackage, name)
     : utils.urlJoin('/actions', name) // local url if NODE_ENV!=prod and REMOTE_ACTIONS not set
   return obj
 }, {})

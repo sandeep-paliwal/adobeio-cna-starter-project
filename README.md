@@ -61,6 +61,7 @@ WHISK_APIVERSION=v1
 WHISK_APIHOST=https://adobeioruntime.net
 WHISK_AUTH=<AUTH>
 WHISK_NAMESPACE=<namespace>
+RUNTIME_HOSTNAME=dev.adobe-runtime.com
 # either TVM URL
 TVM_URL=https://adobeioruntime.net/api/v1/web/adobeio/tvm/get-s3-upload-token
 # Or bring your own S3 credentials and bucket
